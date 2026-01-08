@@ -1,0 +1,53 @@
+Resumo Técnico: Ferramenta de Diagnóstico Vertical de Ciclones Tropicais (MONAN)
+1. Objetivo Principal
+Automatizar a análise da estrutura vertical e termodinâmica do Furacão Julia (Outubro/2022) a partir de dados do modelo MONAN. O script gera diagnósticos visuais ("Cross-Sections") que permitem avaliar a intensificação, profundidade e organização do sistema ao longo de sua trajetória, correlacionando a posição geográfica do centro da baixa pressão com seu perfil vertical.
+
+2. Metodologia de Processamento
+O fluxo de trabalho é dividido em duas etapas automáticas:
+
+Fase 1: Tracking Automático (Rastreamento):
+
+O algoritmo realiza uma varredura nos arquivos NetCDF diários dentro de uma "Caixa de Busca Segura" (Lat 8°-18°N, Lon 95°-60°W).
+
+Identifica o ponto de Pressão Mínima ao Nível do Mar (MSLP) para cada rodada, gerando automaticamente um arquivo CSV (track_julia_auto.csv) com a trajetória do centro do modelo. Isso evita a seleção errônea de baixas térmicas continentais ou ruídos numéricos fora da área de interesse.
+
+Fase 2: Diagnóstico e Cálculo de Derivadas:
+
+Lê a coordenada central do CSV e define uma seção transversal de ±2.0° de longitude centrada na baixa.
+
+Correção Física (Slab Method): Ao contrário de cortes simples, o script extrai uma "fatia" tridimensional (latitude central ±1 ponto de grade). Isso permite o cálculo vetorial correto da Vorticidade Relativa ($\zeta = \partial v/\partial x - \partial u/\partial y$) e Divergência ($\delta$), computando os termos de variação meridional ($\partial y$) que seriam impossíveis em uma linha 2D simples.
+
+Utiliza a biblioteca MetPy para cálculos cinemáticos e termodinâmicos (Temperatura Potencial $\theta$).
+
+3. Períodos de Análise
+O script processa sequencialmente as rodadas sinóticas que compreendem o ciclo de vida do sistema (Gênese, Intensificação e Dissipação/Cruzamento):
+
+Intervalo: 07/10/2022 a 11/10/2022 (Rodadas 00Z).
+
+Cobertura: Desde a aproximação no Caribe, o landfall na Nicarágua, até a saída para o Pacífico.
+
+4. Visualização (Plotagem Multi-Painel)
+Gera uma figura composta de alta resolução contendo 6 painéis alinhados:
+
+Painel 0 (Contexto Geográfico): Mapa de superfície com Cartopy (projeção correta), isóbaras de MSLP, linhas de costa e demarcação exata da linha de corte vertical. A área de visualização é fixa para facilitar a comparação temporal.
+
+Painéis 1-5 (Estrutura Vertical 1000-100 hPa):
+
+Dinâmica/Termodinâmica: Vento Horizontal (kt) + Temperatura Potencial (Isentropas).
+
+Umidade: Umidade Relativa (%).
+
+Rotação: Vorticidade Relativa ($10^{-5} s^{-1}$).
+
+Fluxo de Massa: Divergência Horizontal ($10^{-5} s^{-1}$).
+
+Movimento Vertical: Velocidade Vertical Omega ($\omega$ em Pa/s), com linhas de contorno para distinguir ascendência (tracejado/negativo) de subsidência.
+
+Detalhamento: Inclui máscara de topografia (cinza) para ocultar dados interpolados abaixo do solo.
+
+5. Diferencial Técnico
+Precisão Física: O cálculo das derivadas utiliza o método de "slab" de latitude, garantindo que a vorticidade represente a rotação real do vórtice e não apenas o cisalhamento zonal.
+
+Controle de Qualidade (Logging): Sistema robusto de logs que reporta estatísticas (Min/Max/Média) de cada variável antes da plotagem, permitindo detecção imediata de erros de unidade ou dados corrompidos ("Sanity Check").
+
+Independência de Input Manual: Não requer inserção manual de coordenadas; o script "segue" a tempestade conforme o modelo a simula.

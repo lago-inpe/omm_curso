@@ -1,0 +1,45 @@
+Resumo Técnico: Ferramenta de Verificação de Trajetória de Ciclones
+Este script em Python foi desenvolvido para automatizar a avaliação de desempenho do modelo (MONAN/GFS) na previsão da trajetória de sistemas ciclônicos, com aplicação específica ao estudo de caso do Furacão Julia (2022).
+
+1. Objetivo Principal
+Quantificar e visualizar a precisão das previsões de trajetória do modelo numérico. O script calcula o erro de posição (em km) das previsões em relação a duas referências distintas:
+
+Consistência Interna: Comparação da previsão contra a própria Análise do Modelo.
+
+Verdade Terrestre: Comparação da previsão contra o "Best Track" oficial do NHC (National Hurricane Center).
+
+2. Metodologia de Processamento
+O script utiliza arquivos NetCDF e executa um algoritmo de rastreamento (tracking) baseado em Mínimo de Pressão ao Nível Médio do Mar (MSLP):
+
+Rastreamento Inteligente: Utiliza uma janela de busca dinâmica (raio de influência) a partir da última posição conhecida para encontrar o centro do ciclone no próximo passo de tempo.
+
+Máscara Oceânica (landmask): Implementa um filtro rigoroso que obriga o algoritmo a buscar o centro do ciclone apenas sobre o oceano. Isso impede que o rastreador "salte" incorretamente para baixas pressões térmicas ou espúrias sobre o continente (ex: América do Sul), garantindo a integridade física da trajetória de um ciclone tropical.
+
+Lógica de Fallback: Possui um sistema de segurança em 3 níveis (Caixa Regional -> Oceano Global -> Mínimo Global) para garantir que o script não falhe caso o ciclone saia da área prevista.
+
+3. Períodos de Análise
+Evento: Furacão Julia (Outubro de 2022).
+
+Inicializações (Rodadas): Avalia ciclos de previsão iniciados entre 06/10/2022 e 11/10/2022.
+
+Horizonte de Previsão: Analisa prognósticos de 0 a 120 horas (5 dias), com intervalos de saída a cada 24 horas.
+
+Região: Focada na bacia do Caribe e América Central (Bounding Box: 90°W¿65°W / 8°N¿20°N).
+
+4. Visualização (Plotagem)
+O script gera automaticamente produtos gráficos de alta qualidade para diagnóstico:
+
+Mapa de Trajetórias (tracks_vs_obs.png): Exibe espacialmente as trajetórias previstas (linhas coloridas por rodada), a análise do modelo (linha preta) e o Best Track do NHC (linha azul espessa com marcadores de tempo), permitindo avaliação visual imediata do viés do modelo.
+
+Gráficos de Erro Estatístico:
+
+Erro vs. Lead Time: Evolução do erro médio conforme a previsão avança no tempo (24h, 48h, etc.).
+
+Erro vs. Data de Validade: Performance do modelo para dias específicos do evento.
+
+Dupla Perspectiva: Gera gráficos separados para o erro em relação à Análise e em relação ao NHC.
+
+5. Diferencial Técnico
+A principal inovação deste script é a robustez na seleção do centro do ciclone. Ao integrar a variável geofísica landmask (máscara terra/água) diretamente no loop de decisão do algoritmo, ele elimina "falsos positivos" topográficos que frequentemente contaminam verificações automáticas em regiões costeiras complexas, como o norte da América do Sul. Além disso, a integração direta dos dados oficiais do NHC fornece uma validação absoluta, não apenas relativa.
+
+

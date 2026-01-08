@@ -1,0 +1,29 @@
+Esse script exibe os campos previstos de pressão do modelo MONAN e a trajetória do Furacão Julia oficial do NHC. Além disso, plota a trajetória pelos valores mínimos de pressão ao nível médio do mar do MONAN..
+Resumo Técnico - Painel de Previsões do Furacão Julia (2022) com MONAN/GFS
+1. Objetivo Principal
+Gerar um painel sinóptico compacto de 5×5 mapas que permita comparar rapidamente as previsões de Pressão ao Nível Médio do Mar (MSLP) do modelo MONAN/GFS inicializadas em 5 rodadas diferentes (00 UTC de 05 a 09/10/2022) para os horários de previsão de +24h a +120h (válidos em 06 a 10/10/2022 às 00 UTC), com sobreposição da trajetória oficial do NHC (Best Track) colorida por estágio do ciclone.
+
+2. Metodologia de Processamento
+Lê automaticamente arquivos NetCDF de diagnóstico do MONAN (MONAN_DIAG_R_POS_GFS_*.nc) em subdiretórios por rodada.
+Detecta dinamicamente quais células da matriz 5×5 contém dados válidos (evita plotar previsões inexistentes ou arquivos ausentes).
+Esconde subplots vazios e ajusta rótulos de eixos apenas nas bordas externas da matriz (evita poluição visual).
+Calcula automaticamente a primeira coluna válida por linha e a última linha válida por coluna para posicionamento inteligente de labels.
+3. Períodos de Análise
+Rodadas de inicialização: 2022-10-05 00 UTC -> 2022-10-09 00 UTC (5 rodadas consecutivas)
+Tempos de previsão válidos: 2022-10-06 00 UTC -> 2022-10-10 00 UTC (+24h a +120h)
+Best Track NHC: pontos a cada 3-6h desde distúrbio até dissipação (06/10 12 UTC -> 10/10 18 UTC), incluindo intensidade máxima em 09/10 06 UTC (982 hPa, 75 kt).
+4. Visualização (Plotagem)
+Matriz 5×5 compacta (40×20 polegadas, colunas coladas com wspace=0.000, margens mínimas).
+Contornos de MSLP a cada 2 hPa (960¿1030 hPa) com rótulos inline.
+Trajetória NHC plotada apenas no período coberto pela previsão (±6h do tempo válido), conectada por linha preta fina.
+Marcadores diferenciados por estágio (distúrbio -> depressão -> tempestade -> furacão -> dissipado) com destaque no pico de intensidade.
+Legenda grande e clara integrada dentro da própria figura (subplot [2,0]), aproveitando célula sem dados.
+Rótulos de rodadas movidos para o topo de cada linha (libera espaço lateral).
+Título geral e subtítulo descritivo centralizados.
+5. Diferencial Técnico
+Total automação: detecta arquivos ausentes, ajusta layout dinamicamente, não precisa de intervenção manual.
+Layout ultra-compacto: colunas praticamente coladas (zero espaço entre mapas), ideal para telas grandes ou impressão A1/A0.
+Legenda interna elegante que aproveita espaço ocioso da matriz triangular inferior.
+Código limpo, robusto (tratamento de exceções, uso de pathlib, comentários claros) e facilmente adaptável para outros casos/ciclones.
+Alta resolução (300 DPI) e pronta para publicação científica ou operacional.
+Em resumo: é um painel operacional de alta densidade informativa que permite avaliar em uma única imagem o desempenho do MONAN/GFS em prever trajetória e intensidade do Furacão Julia em diferentes janelas de inicialização ¿ perfeito para estudos de caso, briefings ou artigos acadêmicos.

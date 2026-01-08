@@ -1,0 +1,43 @@
+Segue em anexo um script e sua funcionalidade. O script foi adaptado do modelo regional WRF-INPE , elaborado pelo Diogo. Como não temos a variável de rajada no MONAN, ela foi substituía pelo vento em 850hPa.
+
+Resumo Técnico: Diagnóstico de Vento Máximo (Modelo MONAN) em 850hPa
+Este script em Python realiza o pós-processamento de saídas do modelo MONAN (GFS) para diagnosticar a intensidade e direção dos ventos associados ao Furacão Julia.
+
+1. Objetivo Principal
+Identificar e visualizar o vento máximo sustentado no nível de 850 hPa (aprox. 1.5 km de altura) ao longo de uma previsão de 5 dias, gerando mapas acumulados de 24 em 24 horas.
+
+2. Metodologia de Processamento
+O script opera iterativamente sobre os dados de previsão com a seguinte lógica:
+
+Leitura Otimizada: Utiliza a biblioteca netCDF4 para ler arquivos de saída do modelo a cada 3 horas de previsão.
+
+Cálculo de Magnitude: Para cada passo de tempo, calcula a magnitude do vento em 850 hPa usando as componentes zonais  e meridionais:
+
+Varredura de Máximos (Max Hold): Em vez de uma média, o script retém o valor máximo encontrado em cada ponto de grade durante o período analisado (ex: nas últimas 24h).
+
+Correlação de Níveis: No momento exato em que o vento máximo em 850 hPa é detectado, o script captura as componentes do vento a superfície (10 metros) para plotar a direção correta (barbelas) associa aquele evento de máximo.
+
+3. Periodos de Análise
+O script processa e gera diagnóticos para 6 janelas temporais distintas:
+
+Diários: 0-24h, 24-48h, 48-72h, 72-96h e 96-120h.
+
+Total: Um mapa consolidado com o máximo absoluto de todo o período de 5 dias (0-120h).
+
+4. Visualização (Plotagem)
+Domínio: Focado na região do Caribe/América Central (Furacão Julia).
+
+Camadas:
+
+Cores (Contornos): Representam a intensidade máxima do vento em 850 hPa (em m/s).
+
+Barbelas: Indicam a direçãoo e velocidade do vento a 10m.
+
+Geografia: Linhas de costa e fronteiras políticas para referência.
+
+Tecnologia: Utiliza Matplotlib e Cartopy para gerar painéis de alta qualidade gráfica.
+
+5. Diferencial Técnico
+O script foi adaptado para ser leve e eficiente, pré-calculando os índices da grade geográfica apenas uma vez, o que acelera significativamente a leitura de múltiplos arquivos NetCDF pesados.
+
+

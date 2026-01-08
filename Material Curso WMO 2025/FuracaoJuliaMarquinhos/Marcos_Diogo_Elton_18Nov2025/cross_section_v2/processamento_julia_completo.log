@@ -1,0 +1,38 @@
+[13:37:27] INFO     ============================================================
+[13:37:27] INFO     INICIANDO GERAï¿½ï¿½O AUTOMï¿½TICA DE TRACKING (VARREDURA)
+[13:37:27] INFO     Buscando mï¿½nimos de MSLP na caixa: Lat[8:18], Lon[-95:-60]
+[13:37:27] INFO     Data 2022100700: Centro encontrado em 11.20N, -68.50E (1006.0 hPa)
+[13:37:28] INFO     Data 2022100800: Centro encontrado em 13.07N, -75.25E (1001.2 hPa)
+[13:37:28] INFO     Data 2022100900: Centro encontrado em 12.54N, -81.82E (994.9 hPa)
+[13:37:28] INFO     Data 2022101000: Centro encontrado em 12.54N, -87.22E (1000.0 hPa)
+[13:37:29] INFO     Data 2022101100: Centro encontrado em 13.61N, -94.06E (1007.2 hPa)
+[13:37:29] INFO     Arquivo de tracking gerado com sucesso: track_julia_auto.csv
+[13:37:29] INFO     ============================================================
+[13:37:29] INFO     Iniciando ciclo de plotagem...
+[13:37:29] INFO     Gerando figura para: 2022100700 | Centro CSV: 11.199389ï¿½N, -68.4974ï¿½E
+[13:37:31] INFO     STATS > Vento U (Slab)...........: Min= -16.63 | Max=   7.98 | Mean=  -3.95 m/s
+[13:37:31] INFO     Gerando plot...
+[13:37:36] INFO     Processamento concluï¿½do em 6.89 segundos.
+[13:37:36] INFO     Figura gerada: cross_section_julia_auto_2022100700.png
+[13:37:36] INFO     Gerando figura para: 2022100800 | Centro CSV: 13.072619ï¿½N, -75.2476ï¿½E
+[13:37:37] INFO     STATS > Vento U (Slab)...........: Min= -17.64 | Max=   4.52 | Mean=  -8.07 m/s
+[13:37:37] INFO     Gerando plot...
+[13:37:40] INFO     Processamento concluï¿½do em 4.31 segundos.
+[13:37:40] INFO     Figura gerada: cross_section_julia_auto_2022100800.png
+[13:37:40] INFO     Gerando figura para: 2022100900 | Centro CSV: 12.537411ï¿½N, -81.81779ï¿½E
+[13:37:41] INFO     STATS > Vento U (Slab)...........: Min= -13.95 | Max=   3.52 | Mean=  -5.92 m/s
+[13:37:41] INFO     Gerando plot...
+[13:37:44] INFO     Processamento concluï¿½do em 4.07 segundos.
+[13:37:44] INFO     Figura gerada: cross_section_julia_auto_2022100900.png
+[13:37:44] INFO     Gerando figura para: 2022101000 | Centro CSV: 12.537411ï¿½N, -87.21795ï¿½E
+[13:37:46] INFO     STATS > Vento U (Slab)...........: Min= -16.74 | Max=  15.09 | Mean=  -2.85 m/s
+[13:37:46] INFO     Gerando plot...
+[13:37:49] INFO     Processamento concluï¿½do em 4.60 segundos.
+[13:37:49] INFO     Figura gerada: cross_section_julia_auto_2022101000.png
+[13:37:49] INFO     Gerando figura para: 2022101100 | Centro CSV: 13.607828ï¿½N, -94.05815ï¿½E
+[13:37:50] INFO     STATS > Vento U (Slab)...........: Min= -10.46 | Max=   5.72 | Mean=  -3.09 m/s
+[13:37:50] INFO     Gerando plot...
+[13:37:53] INFO     Processamento concluï¿½do em 4.20 segundos.
+[13:37:53] INFO     Figura gerada: cross_section_julia_auto_2022101100.png
+[13:37:53] INFO     ============================================================
+[13:37:53] INFO     Script finalizado.

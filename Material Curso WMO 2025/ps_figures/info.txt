@@ -1,0 +1,7 @@
+O ambiente pdfview possui o gs (Ghost Script) instalado, que converte .ps para .pdf
+
+
+Exemplo de uso:
+
+conda activate pdfview
+gs -sDevice=pdfwrite -sOutputFile=test.pdf -dBATCH -dNOPAUSE test.ps

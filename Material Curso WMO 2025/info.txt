@@ -1,0 +1,2 @@
+Esta pasta contém scripts utilizados no curso WMO Training Course on Weather Forecasting - and
+beyond - for Regional Meteorological Centers promovido no CPTEC/INPE em 17-28/nov/2025.
